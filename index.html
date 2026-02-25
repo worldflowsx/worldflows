@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WorldFlows helps you plan trips with AI and connect with travelers through real-life meetup intents in one simple app.">
+  <title>WorldFlows</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    html {
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at 15% 10%, #fff6f8 0%, #ffecef 35%, transparent 65%),
+        radial-gradient(circle at 85% 85%, #eef5ff 0%, #f7fbff 35%, transparent 65%),
+        linear-gradient(160deg, #f8f3ff 0%, #ffecec 45%, #f8fbff 100%);
+      color: #111111;
+      padding: 24px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 760px;
+    }
+
+    .sections-row {
+      margin-top: 32px;
+      margin-bottom: 28px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      align-items: stretch;
+    }
+
+    .section-card {
+      flex: 1 1 0;
+      max-width: 240px;
+      text-align: left;
+      border: 1px solid rgba(255, 255, 255, 0.42);
+      border-radius: 18px;
+      padding: 14px;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2));
+      backdrop-filter: blur(14px) saturate(140%);
+      -webkit-backdrop-filter: blur(14px) saturate(140%);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.52),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.2),
+        0 10px 26px rgba(22, 20, 35, 0.12);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .section-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.5), transparent 45%, rgba(255, 255, 255, 0.2));
+    }
+
+    .section-card::after {
+      content: "";
+      position: absolute;
+      inset: 1px;
+      pointer-events: none;
+      border-radius: calc(18px - 1px);
+      border: 1px solid rgba(255, 255, 255, 0.26);
+    }
+
+    .section-card:hover {
+      transform: translateY(-3px);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.58),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.24),
+        0 14px 34px rgba(20, 18, 38, 0.18);
+    }
+
+    .section-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: contain;
+      border-radius: 12px;
+      display: block;
+      margin-bottom: 10px;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    }
+
+    .section-card h2 {
+      margin: 0 0 8px;
+      font-size: 1.1rem;
+      text-align: center;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: textReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .section-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textReveal 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      animation-delay: 0.1s;
+    }
+
+    .section-card:nth-child(2) h2 {
+      animation-delay: 0.08s;
+    }
+
+    .section-card:nth-child(2) p {
+      animation-delay: 0.18s;
+    }
+
+    .section-card:nth-child(3) h2 {
+      animation-delay: 0.14s;
+    }
+
+    .section-card:nth-child(3) p {
+      animation-delay: 0.24s;
+    }
+
+    .section-card.zelo {
+      background: linear-gradient(150deg, rgba(255, 232, 241, 0.72), rgba(255, 255, 255, 0.25));
+      border-color: rgba(194, 24, 91, 0.32);
+    }
+
+    .section-card.trips {
+      background: linear-gradient(150deg, rgba(255, 249, 219, 0.72), rgba(255, 255, 255, 0.25));
+      border-color: rgba(239, 108, 0, 0.34);
+    }
+
+    .section-card.events {
+      background: linear-gradient(150deg, rgba(232, 243, 255, 0.72), rgba(255, 255, 255, 0.25));
+      border-color: rgba(13, 71, 161, 0.3);
+    }
+
+    .section-card.zelo h2 {
+      color: #c2185b;
+    }
+
+    .section-card.trips h2 {
+      color: #ef6c00;
+    }
+
+    .section-card.events h2 {
+      color: #0d47a1;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      line-height: 1.2;
+    }
+
+    h1 img {
+      width: min(320px, 80vw);
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .tagline {
+      margin: 0 0 20px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-align: center;
+    }
+
+    p {
+      margin: 0 auto 16px;
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    main > p:not(.tagline) {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: textReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    main > p:not(.tagline):nth-of-type(2) {
+      animation-delay: 0.3s;
+    }
+
+    main > p:not(.tagline):nth-of-type(3) {
+      animation-delay: 0.4s;
+    }
+
+    main > p:not(.tagline):nth-of-type(4) {
+      animation-delay: 0.5s;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .store-buttons {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .store-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      line-height: 1;
+      border: 1px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .store-button img {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+
+    .store-button.playstore {
+      background: #ffffff;
+      color: #d32f2f;
+      border-color: #d32f2f;
+    }
+
+    .store-button.appstore {
+      background: #111111;
+      color: #ffffff;
+      border-color: #111111;
+    }
+
+    .store-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+    }
+
+    .site-footer {
+      margin-top: 28px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(17, 17, 17, 0.14);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      font-size: 0.92rem;
+    }
+
+    .site-footer a {
+      color: #1a1a1a;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .site-footer a:hover {
+      color: #0d47a1;
+      text-decoration: underline;
+    }
+
+    .site-footer .separator {
+      color: rgba(17, 17, 17, 0.45);
+      user-select: none;
+    }
+
+    .site-footer .copyright {
+      width: 100%;
+      margin-top: 4px;
+      font-size: 0.82rem;
+      color: rgba(17, 17, 17, 0.65);
+    }
+
+    .highlight-yellow {
+      background: #fff59d;
+      padding: 0 4px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .highlight-red {
+      background: #ffcdd2;
+      padding: 0 4px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    .highlight-blue {
+      background: #bbdefb;
+      padding: 0 4px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+
+    @keyframes textReveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .section-card,
+      .section-card h2,
+      .section-card p {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+      }
+
+      .section-card h2,
+      .section-card p {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sections-row {
+        flex-direction: column;
+      }
+
+      .section-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>
+      <img src="Logo with branding.png" alt="Logo with branding">
+    </h1>
+    <p class="tagline">Meet. Plan. Explore</p>
+    <section class="sections-row" aria-label="WorldFlows sections">
+      <article class="section-card zelo">
+        <img src="Login2.PNG" alt="Zelo section image">
+        <h2>Zelo</h2>
+        <p>Connect with nearby travelers through quick meetup intents and shared local plans.</p>
+      </article>
+      <article class="section-card trips">
+        <img src="Login1.PNG" alt="Trips section image">
+        <h2>Trips</h2>
+        <p>Build smart day-by-day itineraries based on your dates, budget, and interests.</p>
+      </article>
+      <article class="section-card events">
+        <img src="Login3.PNG" alt="Events section image">
+        <h2>Events</h2>
+        <p>Discover useful travel events and experiences happening around your destination.</p>
+      </article>
+    </section>
+    <p>
+      <strong>WorldFlows</strong> helps you<br>
+      <span class="highlight-yellow">plan trips faster with AI</span><br>
+      Add your destination, dates, budget, and interests to get a<br>
+      <span class="highlight-yellow">clear day-by-day itinerary</span><br>
+      in one place.
+    </p>
+    <p>
+      With <strong>Zelo</strong>, you can also<br>
+      <span class="highlight-red">connect with nearby travelers</span><br>
+      through simple meetup intents.<br>
+      WorldFlows combines smart planning and<br>
+      <span class="highlight-red">real-world connection</span><br>
+      to make every trip easier and more meaningful.
+    </p>
+    <p>
+      The <strong>Events</strong> section helps you find<br>
+      <span class="highlight-blue">useful local happenings, travel activities, and experiences</span><br>
+      around your destination so you can add more to your trip with<br>
+      <span class="highlight-blue">less effort</span>.
+    </p>
+    <div class="store-buttons" aria-label="Download app links">
+      <a class="store-button playstore" href="https://play.google.com/store/apps/details?id=com.worldflows.app&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAdGRleAQLxbJleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAafshltE_ekE21ZUN9cbYm2wAYTeHvIJgWb3KJ5iytgJKLebHASiYg64cJ6F0w_aem_LOP7Bpzg5yJPvTwNlupHfA" target="_blank" rel="noopener noreferrer" aria-label="Get it on Google Play">
+        <img src="https://cdn.simpleicons.org/googleplay/d32f2f" alt="" aria-hidden="true">
+        <span>Get it on Google Play</span>
+      </a>
+      <a class="store-button appstore" href="app-store-coming-soon.html" aria-label="App Store coming soon page">
+        <img src="https://cdn.simpleicons.org/apple/FFFFFF" alt="" aria-hidden="true">
+        <span>Download on App Store</span>
+      </a>
+    </div>
+    <footer class="site-footer" aria-label="Footer links">
+      <a href="privacy.html" aria-label="Read Privacy Policy">Privacy Policy</a>
+      <span class="separator" aria-hidden="true">|</span>
+      <a href="terms.html" aria-label="Read Terms of Service">Terms of Service</a>
+      <span class="separator" aria-hidden="true">|</span>
+      <a href="mailto:worldflowsx@gmail.com" aria-label="Email WorldFlows">Contact</a>
+      <span class="separator" aria-hidden="true">|</span>
+      <a href="https://www.instagram.com/worldflowsapp/" target="_blank" rel="noopener noreferrer" aria-label="Visit WorldFlows on Instagram">Instagram</a>
+      <span class="copyright">© 2026 WorldFlows. All rights reserved.</span>
+    </footer>
+  </main>
+</body>
+</html>
