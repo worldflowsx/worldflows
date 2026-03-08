@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "5B6LHL77FL.com.worldflows.app"
+        ],
+        "components": [
+          { "/": "/join/*" },
+          { "/": "/zelo/*" }
+        ]
+      }
+    ]
+  }
+}

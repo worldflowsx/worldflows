@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.worldflows.app",
+      "sha256_cert_fingerprints": [
+        "BA:E7:95:95:07:FF:97:44:BF:4F:9F:89:DC:54:F4:1B:7B:94:65:DE:90:22:06:19:A9:9D:45:34:22:86:A7:1C"
+      ]
+    }
+  }
+]

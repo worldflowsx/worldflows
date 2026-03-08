@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Store - Coming Soon</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+    * {
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    html {
+      font-family: "Poppins", Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #000000;
+      color: #ffffff;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .content h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .content p {
+      margin: 0;
+      font-size: clamp(1rem, 2.4vw, 1.2rem);
+      color: rgba(255, 255, 255, 0.9);
+      font-weight: 500;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .content p.timeline-note {
+      max-width: 640px;
+      margin: 0 0 10px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.82);
+      animation-delay: 0.12s;
+    }
+
+    .content p.updates-note {
+      font-size: clamp(1rem, 2.4vw, 1.2rem);
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.92);
+      animation-delay: 0.2s;
+    }
+
+    .apple-logo {
+      width: 56px;
+      height: 56px;
+      display: block;
+      margin: 0 auto 16px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: textReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .content a {
+      color: #ffffff;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @keyframes textReveal {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+        filter: blur(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .apple-logo,
+      .content h1,
+      .content p {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="content" aria-label="App Store coming soon message">
+    <img class="apple-logo" src="https://cdn.simpleicons.org/apple/FFFFFF" alt="Apple logo">
+    <h1>coming soon...</h1>
+    <p class="timeline-note">
+      We are working hard to deploy the app, and it will be uploaded before or in early April 2026.
+    </p>
+    <p class="updates-note">
+      Follow us on
+      <a href="https://www.instagram.com/worldflowsapp/" target="_blank" rel="noopener noreferrer" aria-label="Follow WorldFlows on Instagram">Instagram</a>
+      for updates
+    </p>
+  </main>
+</body>
+</html>
